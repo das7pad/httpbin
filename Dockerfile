@@ -1,7 +1,6 @@
 FROM ubuntu:18.04
 
 LABEL name="httpbin"
-LABEL version="0.9.2"
 LABEL description="A simple HTTP service."
 LABEL org.kennethreitz.vendor="Kenneth Reitz"
 
@@ -14,6 +13,7 @@ ADD Pipfile Pipfile.lock /httpbin/
 WORKDIR /httpbin
 RUN /bin/bash -c "pip3 install --no-cache-dir -r <(pipenv lock -r)"
 
+LABEL version="0.9.2"
 ADD . /httpbin
 RUN pip3 install --no-cache-dir /httpbin
 
