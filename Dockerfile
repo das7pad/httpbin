@@ -13,7 +13,7 @@ ADD Pipfile Pipfile.lock /httpbin/
 WORKDIR /httpbin
 RUN /bin/bash -c "pip3 install --no-cache-dir -r <(pipenv lock -r)"
 
-LABEL version="0.9.2"
+LABEL version="0.9.3+das7pad"
 ADD . /httpbin
 RUN pip3 install --no-cache-dir /httpbin
 
