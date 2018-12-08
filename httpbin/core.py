@@ -88,7 +88,11 @@ app.config["JSONIFY_PRETTYPRINT_REGULAR"] = True
 
 app.add_template_global("HTTPBIN_TRACKING" in os.environ, name="tracking_enabled")
 
-app.config["SWAGGER"] = {"title": "httpbin.org", "uiversion": 3}
+app.config["SWAGGER"] = {
+    "title": "httpbin.org",
+    "uiversion": 3,
+    "version": version,
+}
 
 template = {
     "swagger": "2.0",
@@ -180,6 +184,27 @@ if os.environ.get("BUGSNAG_API_KEY") is not None:
         bugsnag.flask.handle_exceptions(app)
     except:
         app.logger.warning("Unable to initialize Bugsnag exception handling.")
+
+
+if os.environ.get("SENTRY_DSN") is not None:
+    try:
+        from raven import Client
+        from raven.contrib.flask import Sentry
+
+        Sentry(
+            app=app,
+            client=Client(
+                release=version,
+                ignore_exceptions=(
+                    "werkzeug.exceptions.NotFound",
+                ),
+                capture_locals=True,
+                auto_log_stacks=True,
+            ),
+            logging=True,
+        )
+    except:
+        app.logger.warning("Unable to initialize Sentry exception handling.")
 
 # -----------
 # Middlewares
