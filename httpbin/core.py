@@ -185,6 +185,27 @@ if os.environ.get("BUGSNAG_API_KEY") is not None:
     except:
         app.logger.warning("Unable to initialize Bugsnag exception handling.")
 
+
+if os.environ.get("SENTRY_DSN") is not None:
+    try:
+        from raven import Client
+        from raven.contrib.flask import Sentry
+
+        Sentry(
+            app=app,
+            client=Client(
+                release=version,
+                ignore_exceptions=(
+                    "werkzeug.exceptions.NotFound",
+                ),
+                capture_locals=True,
+                auto_log_stacks=True,
+            ),
+            logging=True,
+        )
+    except:
+        app.logger.warning("Unable to initialize Sentry exception handling.")
+
 # -----------
 # Middlewares
 # -----------
