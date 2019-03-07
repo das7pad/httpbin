@@ -1,4 +1,4 @@
-FROM ubuntu:18.04
+FROM python:3
 
 LABEL name="httpbin"
 LABEL description="A simple HTTP service."
@@ -6,8 +6,6 @@ LABEL org.kennethreitz.vendor="Kenneth Reitz"
 
 ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
-
-RUN apt update -y && apt install python3-pip git -y
 
 ADD requirements.txt requirements.docker.txt /httpbin/
 RUN pip3 install --no-cache-dir --requirement /httpbin/requirements.docker.txt
