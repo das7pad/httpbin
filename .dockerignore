@@ -1,2 +1,10 @@
-Dockerfile
-.git
+*
+!/AUTHORS
+!/LICENSE
+!/MANIFEST.in
+!/README.md
+!/httpbin
+!/requirements.docker.txt
+!/requirements.txt
+!/setup.cfg
+!/setup.py
