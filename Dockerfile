@@ -7,11 +7,10 @@ LABEL org.kennethreitz.vendor="Kenneth Reitz"
 ENV LC_ALL=C.UTF-8
 ENV LANG=C.UTF-8
 
-RUN apt update -y && apt install python3-pip git -y && pip3 install --no-cache-dir pipenv
+RUN apt update -y && apt install python3-pip git -y
 
-ADD Pipfile Pipfile.lock /httpbin/
-WORKDIR /httpbin
-RUN /bin/bash -c "pip3 install --no-cache-dir -r <(pipenv lock -r)"
+ADD requirements.txt requirements.docker.txt /httpbin/
+RUN pip3 install --no-cache-dir --requirement /httpbin/requirements.docker.txt
 
 LABEL version="0.9.3+das7pad"
 ADD . /httpbin

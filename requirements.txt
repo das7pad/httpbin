@@ -1,0 +1,7 @@
+Flask
+brotlipy
+decorator
+flasgger
+git+https://github.com/das7pad/raven-python.git@v6.10.2#egg=raven[flask]
+six
+werkzeug>=0.14.1
